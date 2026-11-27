@@ -65,19 +65,4 @@ class BarangTidakDitemukanException extends Exception {
  * Exception yang dilempar ketika input pengguna tidak valid (format salah,
  * angka negatif/di luar rentang, field kosong, atau username duplikat).
  */
-class InputTidakValidException extends Exception {
 
-    /**
-     * Konstruktor dengan pesan kesalahan.
-     */
-    public InputTidakValidException(String message) {
-        super(message);
-    }
-
-    /**
-     * Konstruktor dengan pesan kesalahan dan penyebab.
-     */
-    public InputTidakValidException(String message, Throwable cause) {
-        super(message, cause);
-    }
-}
