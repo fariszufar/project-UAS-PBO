@@ -6,9 +6,6 @@ import java.util.ArrayList;
  * Entitas Transaksi Penyewaan Perlengkapan Acara EventRent (FR-TRX-01 s/d FR-TRX-08, 4.5).
  * Menyimpan data penyewa, daftar paket barang yang disewa, durasi sewa, tanggal penting,
  * status transaksi, metode pembayaran, denda, dan nomor invoice.
- *
- * @author Zaw Then Theit (250810701100046)
- * @version 1.0
  */
 public class Transaksi {
 
@@ -313,9 +310,6 @@ public class Transaksi {
 /**
  * Keranjang belanja sewa perlengkapan acara in-memory milik Penyewa (FR-PNY-04, FR-PNY-05).
  * Menampung daftar barang yang akan disewa oleh penyewa dalam satu sesi.
- *
- * @author M. Diral (250810701100055)
- * @version 1.0
  */
 class KeranjangSewa {
 
@@ -431,9 +425,6 @@ class KeranjangSewa {
  * Entitas Faktur / Invoice Penagihan Penyewaan EventRent (FR-INV-01, FR-INV-02, FR-INV-03).
  * Mengimplementasikan {@link Cetakable} untuk mencetak faktur sewa maupun faktur final
  * (dengan denda) secara terformat dan rapi ke terminal.
- *
- * @author Zaw Then Theit (250810701100046)
- * @version 1.0
  */
 class Invoice implements Cetakable {
 
@@ -600,9 +591,6 @@ interface Cetakable {
 /**
  * Enumerasi siklus status transaksi penyewaan (FR-TRX-02, 4.5).
  * Alur: MENUNGGU -> DITERIMA (atau DITOLAK) -> SELESAI
- *
- * @author M. Diral (250810701100055)
- * @version 1.0
  */
 enum StatusTransaksi {
     /** Transaksi baru dibuat oleh penyewa, menunggu persetujuan admin */
