@@ -6,9 +6,6 @@ import java.util.List;
 /**
  * Kelas abstrak dasar pengguna sistem EventRent (FR-AKN-01, 7).
  * Menyediakan enkapsulasi atribut kredensial serta verifikasi login.
- *
- * @author Muhammad Faris Zufar (250810701100058)
- * @version 1.0
  */
 public abstract class Akun {
 
@@ -19,12 +16,6 @@ public abstract class Akun {
 
     /**
      * Konstruktor dasar untuk Akun.
-     *
-     * @param id       ID akun (misal: AKN-001)
-     * @param username username login (unik, tanpa spasi)
-     * @param password kata sandi (minimal 4 karakter)
-     * @param nama     nama lengkap pengguna
-     * @throws InputTidakValidException jika validasi atribut gagal
      */
     public Akun(String id, String username, String password, String nama)
             throws InputTidakValidException {
@@ -39,10 +30,6 @@ public abstract class Akun {
 
     /**
      * Memverifikasi kecocokan username (case-insensitive) dan password (case-sensitive).
-     *
-     * @param inputUser username masukan
-     * @param inputPass password masukan
-     * @return true jika kredensial cocok
      */
     public boolean login(String inputUser, String inputPass) {
         if (inputUser == null || inputPass == null) {
@@ -58,8 +45,6 @@ public abstract class Akun {
 
     /**
      * Mengembalikan nama peran akun ("ADMIN" atau "PENYEWA").
-     *
-     * @return label peran
      */
     public abstract String getPeran();
 
@@ -150,11 +135,6 @@ public abstract class Akun {
 
 /**
  * Entitas Administrator EventRent (FR-ADM-01 s/d FR-ADM-10, 4.2).
- * Bertanggung jawab mengelola katalog barang, memproses persetujuan transaksi,
- * mengonfirmasi pengembalian beserta denda, serta melihat laporan pendapatan toko.
- *
- * @author Muhammad Faris Zufar (250810701100058)
- * @version 1.0
  */
 class Admin extends Akun {
 
@@ -162,13 +142,6 @@ class Admin extends Akun {
 
     /**
      * Konstruktor Admin.
-     *
-     * @param id        ID akun admin (misal: AKN-001)
-     * @param username  username admin
-     * @param password  kata sandi admin
-     * @param nama      nama lengkap admin
-     * @param dataStore referensi pengelola penyimpanan data
-     * @throws InputTidakValidException jika validasi kredensial gagal
      */
     public Admin(String id, String username, String password, String nama, DataStore dataStore)
             throws InputTidakValidException {
@@ -496,10 +469,6 @@ class Admin extends Akun {
      * Memeriksa ulang ketersediaan seluruh barang, mengubah status barang menjadi DISEWA,
      * status transaksi menjadi DITERIMA, menetapkan tanggal sewa dan jatuh tempo,
      * serta mencetak invoice sewa.
-     *
-     * @param t transaksi yang akan diterima
-     * @throws BarangTidakTersediaException jika ada barang yang sudah berstatus DISEWA
-     * @throws InputTidakValidException     jika status transaksi bukan MENUNGGU
      */
     public void terimaTransaksi(Transaksi t) throws BarangTidakTersediaException, InputTidakValidException {
         if (t == null) {
@@ -535,12 +504,7 @@ class Admin extends Akun {
         new Invoice(noInv, t).cetak();
     }
 
-    /**
-     * Menolak transaksi sewa yang berstatus MENUNGGU (FR-ADM-07).
-     *
-     * @param t transaksi yang ditolak
-     * @throws InputTidakValidException jika status transaksi bukan MENUNGGU
-     */
+  
     public void tolakTransaksi(Transaksi t) throws InputTidakValidException {
         if (t == null) {
             throw new InputTidakValidException("Transaksi tidak valid.");
@@ -793,9 +757,6 @@ class Admin extends Akun {
  * Entitas Penyewa / Pelanggan EventRent (FR-PNY-01 s/d FR-PNY-08, 4.3).
  * Bertanggung jawab melihat katalog, mencari/memfilter barang, mengelola keranjang sewa,
  * melakukan checkout dengan lama sewa (1-30 hari) dan metode pembayaran, serta meninjau riwayat transaksi.
- *
- * @author Muhammad Faris Zufar (250810701100058)
- * @version 1.0
  */
 class Penyewa extends Akun {
 
