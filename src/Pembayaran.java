@@ -123,21 +123,4 @@ class Tunai implements Pembayaran {
         System.out.println("  Petunjuk        : Pembayaran tunai dilakukan langsung di kasir toko.");
         System.out.println("---------------------------------------------------------");
 
-        double uangDiterima = InputHelper.bacaDouble("Masukkan jumlah uang tunai yang diterima: ", 1, 100_000_000);
-        if (uangDiterima < jumlah) {
-            double kurang = jumlah - uangDiterima;
-            throw new InputTidakValidException(
-                    "Uang tunai kurang sebesar " + InputHelper.formatRupiah(kurang) + "! Pembayaran dibatalkan.");
-        }
-
-        double kembalian = uangDiterima - jumlah;
-        System.out.println("  Uang Diterima   : " + InputHelper.formatRupiah(uangDiterima));
-        System.out.println("  Uang Kembalian  : " + InputHelper.formatRupiah(kembalian));
-        System.out.println("[SUKSES] Pembayaran tunai berhasil diterima!");
-    }
-
-    @Override
-    public String getNamaMetode() {
-        return "Tunai";
-    }
-}
+        
