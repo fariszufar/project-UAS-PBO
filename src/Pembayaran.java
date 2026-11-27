@@ -1,32 +1,21 @@
 /**
  * Interface abstraksi metode pembayaran sewa perlengkapan acara (FR-BYR-01, 4.6).
- *
- * @author Zaw Then Theit (250810701100046)
- * @version 1.0
  */
 public interface Pembayaran {
 
     /**
      * Memproses transaksi pembayaran sejumlah nominal yang ditagihkan.
-     *
-     * @param jumlah total nominal tagihan pembayaran dalam rupiah
-     * @throws InputTidakValidException jika nominal &lt;= 0 atau proses dibatalkan/kurang bayar
      */
     void prosesPembayaran(double jumlah) throws InputTidakValidException;
 
     /**
      * Mengembalikan nama metode pembayaran (contoh: "Transfer Bank", "QRIS", "Tunai").
-     *
-     * @return nama metode pembayaran
      */
     String getNamaMetode();
 }
 
 /**
  * Implementasi metode pembayaran Transfer Bank (FR-BYR-02, 4.6).
- *
- * @author Zaw Then Theit (250810701100046)
- * @version 1.0
  */
 class TransferBank implements Pembayaran {
 
@@ -39,7 +28,6 @@ class TransferBank implements Pembayaran {
     }
 
     /**
-     * {@inheritDoc}
      * Menampilkan instruksi rekening bank dan meminta konfirmasi penyelesaian transfer (y/n).
      */
     @Override
@@ -60,7 +48,6 @@ class TransferBank implements Pembayaran {
         System.out.println("[SUKSES] Pembayaran Transfer Bank berhasil diverifikasi!");
     }
 
-    /** {@inheritDoc} */
     @Override
     public String getNamaMetode() {
         return "Transfer Bank";
@@ -69,9 +56,6 @@ class TransferBank implements Pembayaran {
 
 /**
  * Implementasi metode pembayaran QRIS (FR-BYR-02, 4.6).
- *
- * @author Zaw Then Theit (250810701100046)
- * @version 1.0
  */
 class QRIS implements Pembayaran {
 
@@ -82,7 +66,6 @@ class QRIS implements Pembayaran {
     }
 
     /**
-     * {@inheritDoc}
      * Menampilkan simulasi barcode QRIS teks dan meminta konfirmasi pembayaran (y/n).
      */
     @Override
@@ -110,7 +93,6 @@ class QRIS implements Pembayaran {
         System.out.println("[SUKSES] Pembayaran QRIS berhasil diverifikasi!");
     }
 
-    /** {@inheritDoc} */
     @Override
     public String getNamaMetode() {
         return "QRIS";
@@ -119,9 +101,6 @@ class QRIS implements Pembayaran {
 
 /**
  * Implementasi metode pembayaran Tunai / Cash (FR-BYR-02, 4.6).
- *
- * @author Zaw Then Theit (250810701100046)
- * @version 1.0
  */
 class Tunai implements Pembayaran {
 
@@ -132,7 +111,6 @@ class Tunai implements Pembayaran {
     }
 
     /**
-     * {@inheritDoc}
      * Meminta nominal uang tunai yang diterima, memvalidasi kecukupan, dan menampilkan kembalian.
      */
     @Override
@@ -158,7 +136,6 @@ class Tunai implements Pembayaran {
         System.out.println("[SUKSES] Pembayaran tunai berhasil diterima!");
     }
 
-    /** {@inheritDoc} */
     @Override
     public String getNamaMetode() {
         return "Tunai";
