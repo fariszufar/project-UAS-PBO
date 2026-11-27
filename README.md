@@ -123,29 +123,23 @@ javadoc -package -d docs\javadoc src\*.java
 ```
 Uas PBO/
 ├── src/
-│   ├── Main.java
 │   ├── Akun.java
 │   ├── Barang.java
-│   ├── Transaksi.java
-│   ├── Pembayaran.java
 │   ├── DataStore.java
 │   ├── Exceptions.java
-│   ├── Util.java
-│   └── TestSkenario.java
+│   ├── Main.java
+│   ├── Pembayaran.java
+│   ├── TestSkenario.java
+│   ├── Transaksi.java
+│   └── Util.java
 ├── data/
 │   ├── akun.txt
 │   ├── barang.txt
 │   └── transaksi.txt
 ├── docs/
-│   ├── PRD_EventRent.md
-│   ├── UAS_Praktikum_PBO_B.pdf
 │   ├── class-diagram.png
 │   ├── class-diagram.md
 │   └── javadoc/
-├── out/
-├── compile.bat
-├── run.bat
-├── test.bat
 ├── README.md
-└── .gitignore
+└── LINK_GITHUB.txt
 ```
