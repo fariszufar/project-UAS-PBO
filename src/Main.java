@@ -4,10 +4,6 @@
  * 1. Admin (Login langsung)
  * 2. Penyewa (Submenu: Login &amp; Registrasi)
  * 0. Keluar
- * Serta menerapkan batasan maksimal 3 kali gagal login (FR-AKN-03, 3.5).
- *
- * @author Muhammad Faris Zufar (250810701100058)
- * @version 1.0
  */
 public class Main {
 
@@ -22,8 +18,6 @@ public class Main {
 
     /**
      * Titik eksekusi program utama.
-     *
-     * @param args argumen baris perintah
      */
     public static void main(String[] args) {
         dataStore = new DataStore();
