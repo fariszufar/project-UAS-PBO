@@ -1,9 +1,6 @@
 /**
  * Kelas abstrak dasar yang merepresentasikan barang/paket perlengkapan acara (FR-BRG-01).
  * Setiap barang merupakan satu paket/set yang disewa utuh dengan status TERSEDIA atau DISEWA.
- *
- * @author M. Diral (250810701100055)
- * @version 1.0
  */
 public abstract class Barang {
 
@@ -166,9 +163,6 @@ public abstract class Barang {
 /**
  * Representasi kategori Perabot (kursi, meja, sofa) (FR-BRG-01, 4.4).
  * Rumus biaya sewa: {@code tarifHarian * hari} (tarif harian murni).
- *
- * @author M. Diral (250810701100055)
- * @version 1.0
  */
 class Perabot extends Barang {
 
@@ -270,9 +264,6 @@ class Perabot extends Barang {
 /**
  * Representasi kategori Tenda / Terop (FR-BRG-01, 4.4).
  * Rumus biaya sewa: {@code (tarifHarian * hari) + 150.000} (biaya pemasangan tetap sekali per barang).
- *
- * @author M. Diral (250810701100055)
- * @version 1.0
  */
 class Tenda extends Barang {
 
@@ -383,9 +374,6 @@ class Tenda extends Barang {
 /**
  * Representasi kategori Sound System (FR-BRG-01, 4.4).
  * Rumus biaya sewa: {@code (tarifHarian * hari) + (100.000 * hari)} (biaya teknisi per hari).
- *
- * @author M. Diral (250810701100055)
- * @version 1.0
  */
 class SoundSystem extends Barang {
 
@@ -495,9 +483,6 @@ class SoundSystem extends Barang {
 
 /**
  * Enumerasi status ketersediaan barang/paket perlengkapan acara.
- *
- * @author M. Diral (250810701100055)
- * @version 1.0
  */
 enum StatusBarang {
     /** Barang siap dan tersedia untuk disewa */
