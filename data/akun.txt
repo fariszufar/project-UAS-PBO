@@ -1,0 +1,3 @@
+# id|peran|username|password|nama
+AKN-001|ADMIN|admin|admin123|Administrator EventRent
+AKN-002|PENYEWA|penyewa|penyewa123|Penyewa EventRent

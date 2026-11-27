@@ -1,0 +1,1 @@
+# id|idPenyewa|idBarang1;idBarang2|lamaSewa|tglSewa|tglJatuhTempo|tglKembali|status|metode|denda|nomorInvoice
