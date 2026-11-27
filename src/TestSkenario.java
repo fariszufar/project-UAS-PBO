@@ -8,9 +8,6 @@ import java.time.LocalDate;
  * 3. Validasi exception: BarangTidakTersediaException saat barang sedang disewa,
  *    InputTidakValidException saat duplikasi keranjang &amp; batas lama sewa (1-30).
  * 4. Persistensi DataStore (.txt).
- *
- * @author Tim Pengembang EventRent (Muhammad Faris Zufar, M. Diral, Zaw Then Theit)
- * @version 1.0
  */
 public class TestSkenario {
 
