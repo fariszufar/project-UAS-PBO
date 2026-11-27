@@ -13,9 +13,6 @@ import java.util.Scanner;
  * - Barang: BRG-001, BRG-002, dst.
  * - Transaksi: TRX-001, TRX-002, dst.
  * - Invoice: INV-001, INV-002, dst.
- *
- * @author M. Diral (250810701100055)
- * @version 1.0
  */
 class IdGenerator {
 
@@ -72,8 +69,6 @@ class IdGenerator {
 
     /**
      * Memperbarui counter ID akun berdasarkan ID yang dibaca dari file penyimpanan.
-     *
-     * @param id string ID akun (misal: AKN-003)
      */
     public static synchronized void updateCounterAkun(String id) {
         int no = ekstrakNomor(id, "AKN-");
@@ -133,9 +128,6 @@ class IdGenerator {
 /**
  * Utilitas pembacaan input dari CLI yang aman, tangguh, dan anti-crash (NFR-01, FR-UI-03).
  * Menggunakan pendekatan {@code Scanner.nextLine()} yang selalu di-parse secara aman.
- *
- * @author Muhammad Faris Zufar (250810701100058)
- * @version 1.0
  */
 class InputHelper {
 
@@ -151,8 +143,6 @@ class InputHelper {
 
     /**
      * Mengatur instance Scanner baru (berguna untuk mock testing otomatis).
-     *
-     * @param s objek Scanner baru
      */
     public static void setScanner(Scanner s) {
         if (s != null) {
@@ -162,9 +152,6 @@ class InputHelper {
 
     /**
      * Membaca string input dari pengguna.
-     *
-     * @param prompt pesan penunjuk input
-     * @return string hasil input yang sudah di-trim
      */
     public static String bacaString(String prompt) {
         System.out.print(prompt);
@@ -173,9 +160,6 @@ class InputHelper {
 
     /**
      * Membaca string yang tidak boleh kosong.
-     *
-     * @param prompt pesan penunjuk input
-     * @return string valid tidak kosong
      */
     public static String bacaStringWajib(String prompt) {
         while (true) {
@@ -190,9 +174,6 @@ class InputHelper {
 
     /**
      * Membaca string tanpa karakter pembatas pipe ('|') dan tidak kosong.
-     *
-     * @param prompt pesan penunjuk input
-     * @return string aman untuk persistensi file
      */
     public static String bacaStringAman(String prompt) {
         while (true) {
@@ -212,11 +193,6 @@ class InputHelper {
 
     /**
      * Membaca angka integer dalam rentang nilai tertentu secara aman.
-     *
-     * @param prompt pesan penunjuk input
-     * @param min    nilai minimum yang diperbolehkan
-     * @param max    nilai maksimum yang diperbolehkan
-     * @return bilangan integer dalam rentang [min, max]
      */
     public static int bacaInteger(String prompt, int min, int max) {
         while (true) {
@@ -236,11 +212,6 @@ class InputHelper {
 
     /**
      * Membaca angka double dalam rentang nilai tertentu.
-     *
-     * @param prompt pesan penunjuk input
-     * @param min    nilai minimum
-     * @param max    nilai maksimum
-     * @return angka double dalam rentang
      */
     public static double bacaDouble(String prompt, double min, double max) {
         while (true) {
@@ -260,9 +231,8 @@ class InputHelper {
 
     /**
      * Membaca konfirmasi Ya atau Tidak (y/n).
-     *
-     * @param prompt pesan konfirmasi
-     * @return true jika Ya ('y'), false jika Tidak ('n')
+     * prompt pesan konfirmasi
+     *  true jika Ya ('y'), false jika Tidak ('n')
      */
     public static boolean bacaKonfirmasi(String prompt) {
         while (true) {
@@ -280,9 +250,9 @@ class InputHelper {
     /**
      * Membaca tanggal berformat yyyy-MM-dd. Jika kosong, mengembalikan nilai default (hari ini).
      *
-     * @param prompt         pesan tampilan
-     * @param defaultTanggal tanggal default jika input kosong
-     * @return objek LocalDate
+     * prompt         pesan tampilan
+     * defaultTanggal tanggal default jika input kosong
+     * objek LocalDate
      */
     public static LocalDate bacaTanggal(String prompt, LocalDate defaultTanggal) {
         while (true) {
@@ -310,9 +280,6 @@ class InputHelper {
 
     /**
      * Memformat angka nominal menjadi representasi Rupiah standar (contoh: Rp2.025.000).
-     *
-     * @param nominal angka nominal
-     * @return string format Rupiah
      */
     public static String formatRupiah(double nominal) {
         NumberFormat nf = NumberFormat.getNumberInstance(LOCALE_ID);
@@ -321,9 +288,6 @@ class InputHelper {
 
     /**
      * Mencetak garis pembatas mendatar.
-     *
-     * @param karakter karakter penyusun garis
-     * @param panjang  panjang garis dalam karakter
      */
     public static void cetakGaris(char karakter, int panjang) {
         StringBuilder sb = new StringBuilder();
@@ -335,8 +299,6 @@ class InputHelper {
 
     /**
      * Mencetak header terpusat.
-     *
-     * @param judul teks judul
      */
     public static void cetakHeader(String judul) {
         System.out.println();
@@ -354,9 +316,6 @@ class InputHelper {
 
 /**
  * Utilitas pencetakan tabel berbasis terminal/CLI dengan garis rapi dan presisi (FR-UI-01).
- *
- * @author Zaw Then Theit (250810701100046)
- * @version 1.0
  */
 class TabelCetak {
 
@@ -368,8 +327,6 @@ class TabelCetak {
 
     /**
      * Mencetak tabel daftar barang.
-     *
-     * @param dataBarang daftar representasi baris barang
      */
     public static void cetakTabelBarang(List<String[]> dataBarang) {
         int lebar = 80;
@@ -395,10 +352,6 @@ class TabelCetak {
 
     /**
      * Memotong string jika panjangnya melebihi batas kolom.
-     *
-     * @param teks       teks asli
-     * @param maxPanjang batas maksimal
-     * @return string yang dipotong rapi dengan tanda ...
      */
     public static String potongTeks(String teks, int maxPanjang) {
         if (teks == null) return "";
