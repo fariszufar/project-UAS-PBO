@@ -145,7 +145,6 @@ public class Transaksi {
     }
 
     // --- Getter dan Setter ---
-
     /**
      * Mengambil ID transaksi.
      * @return ID transaksi
@@ -421,4 +420,183 @@ class KeranjangSewa {
     }
 }
 
+/**
+ * Entitas Faktur / Invoice Penagihan Penyewaan EventRent (FR-INV-01, FR-INV-02, FR-INV-03).
+ * Mengimplementasikan {@link Cetakable} untuk mencetak faktur sewa maupun faktur final
+ * (dengan denda) secara terformat dan rapi ke terminal.
+ */
+class Invoice implements Cetakable {
 
+    private String nomor;
+    private Transaksi transaksi;
+
+    /**
+     * Konstruktor Invoice.
+     *
+     * @param nomor     nomor seri invoice (misal: INV-001)
+     * @param transaksi objek transaksi yang bersangkutan
+     */
+    public Invoice(String nomor, Transaksi transaksi) {
+        this.nomor = nomor;
+        this.transaksi = transaksi;
+    }
+
+    /**
+     * {@inheritDoc}
+     * Mencetak invoice lengkap dengan format tabel, rupiah standar, tanggal cetak,
+     * dan rincian transaksi sesuai ketentuan FR-INV-02.
+     */
+    @Override
+    public void cetak() {
+        if (transaksi == null) {
+            System.out.println("[ERROR] Transaksi tidak ditemukan untuk mencetak invoice.");
+            return;
+        }
+
+        int lebar = 80;
+        InputHelper.cetakGaris('=', lebar);
+        System.out.println(pusatkan("EVENTRENT - INVOICE PENYEWAAN ACARA", lebar));
+        InputHelper.cetakGaris('=', lebar);
+
+        System.out.printf("  Nomor Invoice     : %-25s Tanggal Cetak : %s\n",
+                this.nomor, LocalDate.now());
+        System.out.printf("  ID Transaksi      : %-25s Status        : %s\n",
+                transaksi.getId(), transaksi.getStatus().name());
+
+        if (transaksi.getPenyewa() != null) {
+            System.out.printf("  ID Penyewa        : %-25s Nama Penyewa  : %s\n",
+                    transaksi.getPenyewa().getId(), transaksi.getPenyewa().getNama());
+        }
+
+        System.out.printf("  Tanggal Sewa      : %-25s Jatuh Tempo   : %s\n",
+                (transaksi.getTanggalSewa() != null ? transaksi.getTanggalSewa().toString() : "-"),
+                (transaksi.getTanggalJatuhTempo() != null ? transaksi.getTanggalJatuhTempo().toString() : "-"));
+
+        if (transaksi.getTanggalKembali() != null) {
+            System.out.printf("  Tanggal Kembali   : %-25s Keterlambatan : %d hari\n",
+                    transaksi.getTanggalKembali().toString(),
+                    transaksi.hitungHariTerlambat());
+        }
+
+        System.out.printf("  Lama Sewa         : %d hari\n", transaksi.getLamaSewa());
+        System.out.printf("  Metode Pembayaran : %s\n",
+                (transaksi.getPembayaran() != null ? transaksi.getPembayaran().getNamaMetode() : "-"));
+        InputHelper.cetakGaris('-', lebar);
+
+        // Header Tabel Rincian Barang
+        System.out.printf("  %-3s | %-8s | %-28s | %-14s | %-13s | %s\n",
+                "No", "ID", "Nama Perlengkapan", "Kategori", "Tarif/Hari", "Biaya Sewa");
+        InputHelper.cetakGaris('-', lebar);
+
+        ArrayList<Barang> items = transaksi.getBarang();
+        int no = 1;
+        double totalSewa = 0.0;
+        for (Barang b : items) {
+            double biayaItem = b.hitungBiaya(transaksi.getLamaSewa());
+            totalSewa += biayaItem;
+            System.out.printf("  %-3d | %-8s | %-28s | %-14s | %-13s | %s\n",
+                    no++,
+                    b.getId(),
+                    potong(b.getNama(), 28),
+                    b.getKategori(),
+                    InputHelper.formatRupiah(b.getTarifHarian()),
+                    InputHelper.formatRupiah(biayaItem));
+        }
+
+        InputHelper.cetakGaris('-', lebar);
+        System.out.printf("  %-56s : %16s\n", "Total Biaya Sewa", InputHelper.formatRupiah(totalSewa));
+
+        double nominalDenda = transaksi.getDenda();
+        if (nominalDenda > 0 || transaksi.hitungHariTerlambat() > 0) {
+            if (nominalDenda <= 0) {
+                nominalDenda = transaksi.hitungDenda();
+            }
+            System.out.printf("  %-56s : %16s\n",
+                    "Denda Keterlambatan (" + transaksi.hitungHariTerlambat() + " hari)",
+                    InputHelper.formatRupiah(nominalDenda));
+            System.out.printf("  %-56s : %16s\n", "TOTAL KESELURUHAN",
+                    InputHelper.formatRupiah(totalSewa + nominalDenda));
+        } else {
+            System.out.printf("  %-56s : %16s\n", "Denda Keterlambatan", "Rp0");
+            System.out.printf("  %-56s : %16s\n", "TOTAL KESELURUHAN",
+                    InputHelper.formatRupiah(totalSewa));
+        }
+
+        InputHelper.cetakGaris('=', lebar);
+        System.out.println(pusatkan("Terima kasih atas kepercayaan Anda menyewa di EventRent!", lebar));
+        InputHelper.cetakGaris('=', lebar);
+        System.out.println();
+    }
+
+    private String pusatkan(String teks, int lebar) {
+        if (teks.length() >= lebar) return teks;
+        int spasi = (lebar - teks.length()) / 2;
+        return " ".repeat(spasi) + teks;
+    }
+
+    private String potong(String teks, int max) {
+        if (teks == null) return "";
+        if (teks.length() <= max) return teks;
+        return teks.substring(0, max - 3) + "...";
+    }
+
+    /**
+     * Mengambil nomor invoice.
+     * @return nomor invoice
+     */
+    public String getNomor() {
+        return nomor;
+    }
+
+    /**
+     * Mengatur nomor invoice.
+     * @param nomor nomor baru
+     */
+    public void setNomor(String nomor) {
+        this.nomor = nomor;
+    }
+
+    /**
+     * Mengambil objek transaksi terkait.
+     * @return transaksi
+     */
+    public Transaksi getTransaksi() {
+        return transaksi;
+    }
+
+    /**
+     * Mengatur objek transaksi terkait.
+     * @param transaksi objek transaksi baru
+     */
+    public void setTransaksi(Transaksi transaksi) {
+        this.transaksi = transaksi;
+    }
+}
+
+/**
+ * Interface untuk objek yang dapat dicetak tampilannya ke layar terminal (FR-INV-01, 7).
+ *
+ * @author Zaw Then Theit (250810701100046)
+ * @version 1.0
+ */
+interface Cetakable {
+    /**
+     * Mencetak representasi terformat dokumen ke konsol CLI.
+     */
+    void cetak();
+}
+
+/**
+ * Enumerasi siklus status transaksi penyewaan (FR-TRX-02, 4.5).
+ * Alur: MENUNGGU -> DITERIMA (atau DITOLAK) -> SELESAI
+ */
+enum StatusTransaksi {
+    /** Transaksi baru dibuat oleh penyewa, menunggu persetujuan admin */
+    MENUNGGU,
+    /** Transaksi telah disetujui admin, barang mulai disewa */
+    DITERIMA,
+    /** Barang telah dikembalikan ke toko dan transaksi tuntas */
+    SELESAI,
+    /** Transaksi ditolak oleh admin */
+    DITOLAK
+}
