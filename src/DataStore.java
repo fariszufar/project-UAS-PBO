@@ -7,9 +7,6 @@ import java.util.HashMap;
 /**
  * Pengelola persistensi data EventRent ke berkas teks .txt (FR-DAT-01 s/d FR-DAT-04, 4.7a).
  * Mengelola penyimpanan akun.txt, barang.txt, dan transaksi.txt menggunakan pemisah pipe ('|').
- *
- * @author M. Diral (250810701100055)
- * @version 1.0
  */
 public class DataStore {
 
@@ -482,9 +479,6 @@ public class DataStore {
 
 /**
  * Pengelola koleksi katalog barang/paket perlengkapan acara EventRent (FR-ADM-01 s/d FR-ADM-04).
- *
- * @author M. Diral (250810701100055)
- * @version 1.0
  */
 class DaftarBarang {
 
@@ -599,7 +593,6 @@ class DaftarBarang {
 
     /**
      * Mengambil daftar barang yang siap/tersedia untuk disewa (status TERSEDIA).
-     *
      * @return list barang berstatus TERSEDIA
      */
     public ArrayList<Barang> getBarangTersedia() {
